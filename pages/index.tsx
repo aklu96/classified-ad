@@ -7,10 +7,10 @@ import ThirdModal from '../components/thirdModal/ThirdModal';
 interface Props { }
 
 interface State {
-  view: number,
-  firstModalShow: boolean,
-  secondModalShow: boolean,
-  thirdModalShow: boolean
+  view: number;
+  firstModalShow: boolean;
+  secondModalShow: boolean;
+  thirdModalShow: boolean;
 }
 
 class App extends React.Component<Props, State> {
@@ -27,19 +27,33 @@ class App extends React.Component<Props, State> {
     };
 
     this.handleMakeAdButton = this.handleMakeAdButton.bind(this);
+    this.handleClose = this.handleClose.bind(this);
   }
 
-  // This button should show the current modal.
-  // If the workflow is just beginning, show the first modal.
+  // This button shows the current modal
   handleMakeAdButton() {
-    let { view } = this.state;
+    let {
+      view,
+      firstModalShow,
+      secondModalShow,
+      thirdModalShow
+    } = this.state;
 
+    // If the workflow is just beginning, show the first modal.
     if (view === 0) {
       view = 1;
     }
-    console.log('makead', view);
+
+    // update modal states
+    firstModalShow = view === 1 ? true : false;
+    secondModalShow = view === 2 ? true : false;
+    thirdModalShow = view === 3 ? true : false;
+
     this.setState({
-      view
+      view,
+      firstModalShow,
+      secondModalShow,
+      thirdModalShow
     });
   }
 
@@ -51,20 +65,24 @@ class App extends React.Component<Props, State> {
     });
   }
 
-  renderModals(modal) {
-    const { view } = this.state;
-    if (view === modal) {
-      console.log('render');
-      return true;
-    }
-    return false;
+  handleClose() {
+    this.setState({
+      firstModalShow: false,
+      secondModalShow: false,
+      thirdModalShow: false
+    });
   }
 
   render() {
+    const {
+      firstModalShow,
+      secondModalShow,
+      thirdModalShow
+    } = this.state;
     return (
       <div>
         <MainPage makeAd={this.handleMakeAdButton} />
-        <FirstModal show={this.renderModals(1)} />
+        <FirstModal show={firstModalShow} handleClose={this.handleClose} />
       </div>
     )
   }
