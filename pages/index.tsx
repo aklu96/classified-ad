@@ -70,7 +70,9 @@ class App extends React.Component<Props, State> {
 
     // use assign in order to bypass making a method for each modal
     Object.assign(newState, adState);
-    this.setState(newState);
+    this.setState(newState, () => {
+      console.log(`on to modal ${this.state.view}`, this.state);
+    });
   }
 
   // handle exiting modals (passed down to each modal)

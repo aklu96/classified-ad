@@ -2,11 +2,19 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import validateCharLimit from '../../helperFunctions/validateCharLimit';
 
-interface Props { }
+interface AdState {
+  body: string;
+  image: string | ArrayBuffer;
+}
+
+interface Props {
+  updateAd: (adState: AdState) => any;
+}
 
 interface State {
-  adBody: string;
+  body: string;
   showTextError: boolean;
+  image: string | ArrayBuffer;
 }
 
 class AdBody extends React.Component<Props, State> {
@@ -15,7 +23,7 @@ class AdBody extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      adBody: '',
+      body: '',
       showTextError: false,
       image: ''
     }
@@ -25,24 +33,25 @@ class AdBody extends React.Component<Props, State> {
   }
 
   handleInputChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
-    console.log(this);
     this.setState({
-      adBody: e.target.value
+      body: e.target.value
     });
   }
 
   handleImageUpload(e: React.ChangeEvent<HTMLInputElement>) {
-    const [file] = e.target.files;
-    const reader = new FileReader();
-    console.log(reader);
-    console.log(this);
-    reader.onload = (e) => {
-      console.log(this);
-      this.setState({
-        image: e.target.result
-      });
+    const files = e.target.files;
+    const file = files ? files[0] : null;
+    if (file) {
+      const reader = new FileReader();
+      reader.onload = (e) => {
+        if (e.target && e.target.result) {
+          this.setState({
+            image: e.target.result
+          });
+        }
+      }
+      reader.readAsDataURL(file);
     }
-    reader.readAsDataURL(file);
   }
 
   renderCharError() {
@@ -56,7 +65,11 @@ class AdBody extends React.Component<Props, State> {
   }
 
   render() {
-    const { adBody } = this.state;
+    const {
+      body,
+      image
+    } = this.state;
+    const { updateAd } = this.props;
     return (
       <div>
         <form>
@@ -64,30 +77,31 @@ class AdBody extends React.Component<Props, State> {
             name="body"
             className="body"
             placeholder="Ad Body"
-            value={adBody}
+            value={body}
             onChange={this.handleInputChange}
           />
           <div className="textContainer">Max of 1000 chars</div>
           {this.renderCharError()}
-          <div className="textContainer">Tomorrow is our earliest availability</div>
+          <div className="textContainer">If you would like to enter an image, do so below:</div>
           <input
             type="file"
             accept="image/*"
             multiple={false}
             onChange={this.handleImageUpload}
           />
-          <img id="target" src={this.state.image} />
+          <div className="spacing"></div>
           <button
             type="button"
             onClick={() => {
-              // validate each and render respective error messages if wrong
-              if (!validateCharLimit(adBody, 1000)) {
+              // validate text body; no image is accepted
+              if (!validateCharLimit(body, 1000)) {
                 this.setState({
                   showTextError: true
                 });
               } else {
-                this.setState({
-                  showTextError: false
+                updateAd({
+                  body,
+                  image
                 });
               }
             }}
@@ -95,7 +109,6 @@ class AdBody extends React.Component<Props, State> {
             Next
           </button>
         </form>
-
       </div>
     );
   }

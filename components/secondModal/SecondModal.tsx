@@ -4,8 +4,8 @@ import "bootstrap/dist/css/bootstrap.min.css";
 import AdBody from './AdBody';
 
 interface AdState {
-  title: string;
-  date: Date;
+  body: string;
+  image: string | ArrayBuffer;
 }
 
 interface Props {
@@ -17,7 +17,8 @@ interface Props {
 const SecondModal = (props: Props) => {
   const {
     show,
-    handleClose
+    handleClose,
+    updateAd
   } = props;
 
   return (
@@ -27,7 +28,7 @@ const SecondModal = (props: Props) => {
           <Modal.Title>Please enter the title of your ad and the date you would like it posted:</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AdBody />
+          <AdBody updateAd={updateAd} />
           </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>
