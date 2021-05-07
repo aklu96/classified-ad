@@ -1,15 +1,20 @@
-// import Form from 'react-bootstrap/modal';
-// import Button from 'react-bootstrap/button';
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 import AdDate from './AdDate';
 import validateCharLimit from '../../helperFunctions/validateCharLimit';
 import validateDate from '../../helperFunctions/validateDate';
 
-interface Props { }
+interface AdState {
+  title: string;
+  date: Date;
+}
+
+interface Props {
+  updateAd: (adState: AdState) => any;
+}
 
 interface State {
-  adTitle: string;
+  title: string;
   date: Date;
   showTextError: boolean;
   showDateError: boolean;
@@ -21,7 +26,7 @@ class AdBasics extends React.Component<Props, State> {
     super(props);
 
     this.state = {
-      adTitle: '',
+      title: '',
       date: new Date(),
       showTextError: false,
       showDateError: false
@@ -33,7 +38,7 @@ class AdBasics extends React.Component<Props, State> {
 
   handleInputChange(e: React.ChangeEvent<HTMLInputElement>) {
     this.setState({
-      adTitle: e.target.value
+      title: e.target.value
     });
   }
 
@@ -64,11 +69,12 @@ class AdBasics extends React.Component<Props, State> {
   }
 
   render() {
-    const { adTitle, date } = this.state;
+    const { title, date } = this.state;
+    const { updateAd } = this.props;
     return (
       <div>
         <form>
-          <input name="adTitle" placeholder="Ad Title" value={adTitle} onChange={this.handleInputChange} />
+          <input name="title" placeholder="Ad Title" value={title} onChange={this.handleInputChange} />
           <div className="textContainer">Max of 50 chars</div>
           {this.renderCharError()}
           <AdDate updateDate={this.updateDate} />
@@ -78,7 +84,7 @@ class AdBasics extends React.Component<Props, State> {
             type="button"
             onClick={() => {
               // validate each and render respective error messages if wrong
-              if (!validateCharLimit(adTitle, 50)) {
+              if (!validateCharLimit(title, 50)) {
                 this.setState({
                   showTextError: true
                 });
@@ -96,10 +102,12 @@ class AdBasics extends React.Component<Props, State> {
                   showDateError: false
                 });
               }
-
               // if both fields are satisfied, save state to App and go to the next modal
-              if (validateCharLimit(adTitle, 50) && validateDate(date)) {
-                // go to next modal
+              if (validateCharLimit(title, 50) && validateDate(date)) {
+                updateAd({
+                  title,
+                  date
+                });
               }
             }}
           >
