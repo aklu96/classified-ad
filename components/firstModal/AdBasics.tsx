@@ -74,7 +74,7 @@ class AdBasics extends React.Component<Props, State> {
     return (
       <div>
         <form>
-          <input name="title" placeholder="Ad Title" value={title} onChange={this.handleInputChange} />
+          <input name="body" className="title" placeholder="Ad Title" value={title} onChange={this.handleInputChange} />
           <div className="textContainer">Max of 50 chars</div>
           {this.renderCharError()}
           <AdDate updateDate={this.updateDate} />
