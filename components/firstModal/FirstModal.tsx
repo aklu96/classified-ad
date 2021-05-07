@@ -1,36 +1,36 @@
-import React, { useState } from 'react';
 import Modal from 'react-bootstrap/modal';
 import Button from 'react-bootstrap/button';
 import "bootstrap/dist/css/bootstrap.min.css";
+import AdBasics from './AdBasics';
 
-const FirstModal = () => {
-  const [show, setShow] = useState(false);
+interface Props {
+  show: boolean;
+  handleClose: () => any;
+}
 
-  const handleClose = () => setShow(false);
-  const handleShow = () => setShow(true);
+const FirstModal = (props: Props) => {
+  const {
+    show,
+    handleClose
+  } = props;
 
   return (
     <>
-      <Button variant="primary" onClick={handleShow}>
-        Launch demo modal
-      </Button>
-
-      <Modal show={show} onHide={handleClose}>
-        <Modal.Header closeButton>
-          <Modal.Title>Modal heading</Modal.Title>
+      <Modal show={props.show} onHide={handleClose}>
+        <Modal.Header>
+          <Modal.Title>Please enter the title of your ad and the date you would like it posted:</Modal.Title>
         </Modal.Header>
-        <Modal.Body>Woohoo, you're reading this text in a modal!</Modal.Body>
+        <Modal.Body>
+          <AdBasics />
+          </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-          </Button>
           <Button variant="primary" onClick={handleClose}>
-            Save Changes
-          </Button>
+            Close
+            </Button>
         </Modal.Footer>
       </Modal>
     </>
   );
-}
+};
 
 export default FirstModal;
