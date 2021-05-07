@@ -11,3 +11,21 @@
 .validationMessage {
   color: red;
 }
+
+.textContainer {
+  height: 25px;
+  margin: 5px 0;
+}
+
+.title {
+  width: 450px;
+}
+
+.body {
+  height: 200px;
+  width: 450px;
+}
+
+.spacing {
+  height: 10px;
+}
