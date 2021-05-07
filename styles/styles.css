@@ -11,3 +11,8 @@
 .validationMessage {
   color: red;
 }
+
+.textContainer {
+  height: 25px;
+  margin: 5px 0;
+}

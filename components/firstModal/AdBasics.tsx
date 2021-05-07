@@ -47,7 +47,7 @@ class AdBasics extends React.Component<Props, State> {
     const { showTextError } = this.state;
     if (showTextError) {
       return (
-        <div className="validationMessage">Please enter a valid input</div>
+        <div className="validationMessage textContainer">Please enter a valid input</div>
       )
     }
     return null;
@@ -57,7 +57,7 @@ class AdBasics extends React.Component<Props, State> {
     const { showDateError } = this.state;
     if (showDateError) {
       return (
-        <div className="validationMessage">Please enter a valid date</div>
+        <div className="validationMessage textContainer">Please enter a valid date</div>
       )
     }
     return null;
@@ -69,10 +69,10 @@ class AdBasics extends React.Component<Props, State> {
       <div>
         <form>
           <input name="adTitle" placeholder="Ad Title" value={adTitle} onChange={this.handleInputChange} />
-          <div>Max of 50 chars</div>
+          <div className="textContainer">Max of 50 chars</div>
           {this.renderCharError()}
           <AdDate updateDate={this.updateDate} />
-          <div>Tomorrow is our earliest availability</div>
+          <div className="textContainer">Tomorrow is our earliest availability</div>
           {this.renderDateError()}
           <button
             type="button"
