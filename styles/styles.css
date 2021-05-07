@@ -7,3 +7,7 @@
 .welcomePageButtonContainer {
   text-align: center;
 }
+
+.validationMessage {
+  color: red;
+}

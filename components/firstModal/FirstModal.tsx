@@ -17,18 +17,15 @@ const FirstModal = (props: Props) => {
   return (
     <>
       <Modal show={props.show} onHide={handleClose}>
-        <Modal.Header closeButton>
+        <Modal.Header>
           <Modal.Title>Please enter the title of your ad and the date you would like it posted:</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <AdBasics />
           </Modal.Body>
         <Modal.Footer>
-          <Button variant="secondary" onClick={handleClose}>
-            Close
-            </Button>
           <Button variant="primary" onClick={handleClose}>
-            Save Changes
+            Close
             </Button>
         </Modal.Footer>
       </Modal>
