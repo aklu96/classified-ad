@@ -3,7 +3,7 @@ import MainPage from '../components/mainPage/MainPage';
 import FirstModal from '../components/firstModal/FirstModal';
 import SecondModal from '../components/secondModal/SecondModal';
 import ThirdModal from '../components/thirdModal/ThirdModal';
-import updateModalStates from '../helperFunctions/updateModalStates'
+import updateModalStates from '../helperFunctions/updateModalStates';
 
 // used for updateAdAndView method so that it can be reused for all modals
 interface AdState {
@@ -100,6 +100,11 @@ class App extends React.Component<Props, State> {
         />
         <SecondModal
           show={secondModalShow}
+          handleClose={this.handleClose}
+          updateAd={this.updateAdAndView}
+        />
+        <ThirdModal
+          show={thirdModalShow}
           handleClose={this.handleClose}
           updateAd={this.updateAdAndView}
         />

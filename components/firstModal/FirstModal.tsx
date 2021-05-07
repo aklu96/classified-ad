@@ -25,7 +25,7 @@ const FirstModal = (props: Props) => {
     <>
       <Modal show={props.show} onHide={handleClose}>
         <Modal.Header>
-          <Modal.Title>Please enter the title of your ad and the date you would like it posted:</Modal.Title>
+          <Modal.Title>Please enter the title of your ad and the date you would like it posted</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <AdBasics updateAd={updateAd} />
