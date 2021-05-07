@@ -3,7 +3,11 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 import WelcomePage from './WelcomePage';
 import Ad from './Ad';
 
-const MainPage = (props) => {
+interface Props {
+  makeAd: () => any;
+}
+
+const MainPage = (props: Props) => {
   const { makeAd } = props;
   return (
     <div>

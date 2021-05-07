@@ -1,9 +1,12 @@
 import Button from 'react-bootstrap/button';
 import 'bootstrap/dist/css/bootstrap.min.css';
 
-const WelcomePage = (props) => {
+interface Props {
+  makeAd: () => any;
+}
+
+const WelcomePage = (props: Props) => {
   const { makeAd } = props;
-  console.log(props);
   return (
     <div>
       <div className='welcomePageTitleContainer'>

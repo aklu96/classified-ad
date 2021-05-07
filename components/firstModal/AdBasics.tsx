@@ -30,6 +30,7 @@ class AdBasics extends React.Component<Props, State> {
 
   render() {
     const { adTitle } = this.state;
+    console.log(adTitle);
     return (
       <div>
         <form>
@@ -39,6 +40,7 @@ class AdBasics extends React.Component<Props, State> {
             onClick={() => {
               if (!validateCharLimit(adTitle, 50)) {
                 // render validation text
+                console.log('validation works');
                 return;
               }
               // handle action to move to next form
