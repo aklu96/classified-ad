@@ -2,7 +2,12 @@ import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface AdState {
-  // update
+  gender: string;
+  target: {
+    consumer: boolean;
+    smb: boolean;
+    enterprise: boolean;
+  }
 }
 
 interface Props {
@@ -10,7 +15,10 @@ interface Props {
 }
 
 interface State {
-  // update
+  gender: string;
+  target: {
+    [targetName: string]: boolean
+  }
 }
 
 class AdLogistics extends React.Component<Props, State> {
@@ -20,26 +28,30 @@ class AdLogistics extends React.Component<Props, State> {
 
     this.state = {
       gender: '',
-      showTextError: false,
-      image: ''
+      target: {
+        consumer: false,
+        smb: false,
+        enterprise: false
+      }
     }
 
-    this.handleInputChange = this.handleInputChange.bind(this);
+    this.handleGenderInput = this.handleGenderInput.bind(this);
+    this.handleTargetInput = this.handleTargetInput.bind(this);
   }
 
-  handleInputChange(e: React.ChangeEvent<HTMLTextAreaElement>) {
+  handleGenderInput(e: React.ChangeEvent<HTMLInputElement>) {
     this.setState({
       gender: e.target.value
-    }, () => {
-      console.log(this.state.gender);
     });
   }
 
+  handleTargetInput(e: React.ChangeEvent<HTMLInputElement>) {
+    const state = this.state;
+    state.target[e.target.value] = !state.target[e.target.value];
+    this.setState(state);
+  }
+
   render() {
-    const {
-      body,
-      image
-    } = this.state;
     const { updateAd } = this.props;
     return (
       <div>
@@ -49,44 +61,52 @@ class AdLogistics extends React.Component<Props, State> {
             type="radio"
             name="gender"
             value="male"
-            onChange={this.handleInputChange}
+            onChange={this.handleGenderInput}
           /> Male
-          <div></div>
+          <br />
           <input
             type="radio"
             name="gender"
             value="female"
-            onChange={this.handleInputChange}
+            onChange={this.handleGenderInput}
           /> Female
-          <div>Gender:</div>
+          <br />
+          <div className="spacing"></div>
+          <div>Target Audience (check all that apply):</div>
           <input
-            type="radio"
-            name="gender"
-            value="male"
-            onChange={this.handleInputChange}
-          /> Male
-          <div></div>
+            type="checkbox"
+            name="target"
+            value="consumer"
+            onChange={this.handleTargetInput}
+          /> Consumers
+          <br />
           <input
-            type="radio"
-            name="gender"
-            value="female"
-            onChange={this.handleInputChange}
-          /> Female
+            type="checkbox"
+            name="target"
+            value="smb"
+            onChange={this.handleTargetInput}
+          /> SMBs
+          <br />
+          <input
+            type="checkbox"
+            name="target"
+            value="enterprise"
+            onChange={this.handleTargetInput}
+          /> Large Enterprises
+          <br />
+          <div className="spacing"></div>
+          <div>Age:</div>
+          <select name="age">
+            <option value="0-20"> 0 - 20</option>
+          </select>
+          <br />
           <div className="spacing"></div>
           <button
             type="button"
             onClick={() => {
-              // validate text body; no image is accepted
-              if (!validateCharLimit(body, 1000)) {
-                this.setState({
-                  showTextError: true
-                });
-              } else {
-                updateAd({
-                  body,
-                  image
-                });
-              }
+              updateAd({
+                // update
+              });
             }}
           >
             Next
