@@ -15,8 +15,7 @@ interface Props {
 }
 
 interface State {
-  gender: string;
-  target: {
+  [demographicDataType: string]: string | {
     [targetName: string]: boolean
   }
 }
@@ -28,6 +27,7 @@ class AdLogistics extends React.Component<Props, State> {
 
     this.state = {
       gender: '',
+      age: '',
       target: {
         consumer: false,
         smb: false,
@@ -35,20 +35,25 @@ class AdLogistics extends React.Component<Props, State> {
       }
     }
 
-    this.handleGenderInput = this.handleGenderInput.bind(this);
+    this.handleInput = this.handleInput.bind(this);
     this.handleTargetInput = this.handleTargetInput.bind(this);
   }
 
-  handleGenderInput(e: React.ChangeEvent<HTMLInputElement>) {
+  // handles radio and select elements
+  handleInput(e: React.ChangeEvent<HTMLInputElement>) {
     this.setState({
-      gender: e.target.value
+      [e.target.name]: e.target.value
     });
   }
 
   handleTargetInput(e: React.ChangeEvent<HTMLInputElement>) {
-    const state = this.state;
-    state.target[e.target.value] = !state.target[e.target.value];
-    this.setState(state);
+    const  { target } = this.state;
+    target[e.target.value] = !target[e.target.value];
+    this.setState({
+      target
+    }, () => {
+      console.log(this.state);
+    });
   }
 
   render() {
@@ -61,18 +66,29 @@ class AdLogistics extends React.Component<Props, State> {
             type="radio"
             name="gender"
             value="male"
-            onChange={this.handleGenderInput}
+            onChange={this.handleInput}
           /> Male
           <br />
           <input
             type="radio"
             name="gender"
             value="female"
-            onChange={this.handleGenderInput}
+            onChange={this.handleInput}
           /> Female
           <br />
           <div className="spacing"></div>
-          <div>Target Audience (check all that apply):</div>
+          <div>Age:</div>
+          <select name="age" onChange={(e) => {
+            console.log(e.target.value);
+          }}>
+            <option value="0-20">0 - 20</option>
+            <option value="20-40">20 - 40</option>
+            <option value="40-60">40 - 60</option>
+            <option value="60+">60+</option>
+          </select>
+          <br />
+          <div className="spacing"></div>
+          <div>Ad Target Audience (check all that apply):</div>
           <input
             type="checkbox"
             name="target"
@@ -93,12 +109,6 @@ class AdLogistics extends React.Component<Props, State> {
             value="enterprise"
             onChange={this.handleTargetInput}
           /> Large Enterprises
-          <br />
-          <div className="spacing"></div>
-          <div>Age:</div>
-          <select name="age">
-            <option value="0-20"> 0 - 20</option>
-          </select>
           <br />
           <div className="spacing"></div>
           <button

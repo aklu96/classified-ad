@@ -24,7 +24,7 @@ const ThirdModal = (props: Props) => {
     <>
       <Modal show={props.show} onHide={handleClose}>
         <Modal.Header>
-          <Modal.Title>Help us serve our customers by filling out some demographic data (optional)</Modal.Title>
+          <Modal.Title>Help us better serve our customers by providing information about yourself (optional)</Modal.Title>
         </Modal.Header>
         <Modal.Body>
           <AdLogistics updateAd={updateAd} />
