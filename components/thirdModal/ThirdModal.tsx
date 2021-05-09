@@ -1,10 +1,16 @@
 import Modal from 'react-bootstrap/modal';
 import Button from 'react-bootstrap/button';
 import "bootstrap/dist/css/bootstrap.min.css";
-import AdLogistics from './AdLogistics';
+import AdDemographics from './AdDemographics';
 
 interface AdState {
-  // update
+  gender: string;
+  age: string;
+  target: {
+    consumer: boolean;
+    smb: boolean;
+    enterprise: boolean;
+  }
 }
 
 interface Props {
@@ -27,7 +33,7 @@ const ThirdModal = (props: Props) => {
           <Modal.Title>Help us better serve our customers by providing information about yourself (optional)</Modal.Title>
         </Modal.Header>
         <Modal.Body>
-          <AdLogistics updateAd={updateAd} />
+          <AdDemographics updateAd={updateAd} />
           </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>

@@ -13,7 +13,7 @@ const WelcomePage = (props: Props) => {
         <h1>Welcome! You can use this site to make a classified ad.</h1>
       </div>
       <div className='welcomePageButtonContainer'>
-        <Button onClick={() => makeAd()}>Make a Classified Ad</Button>
+        <Button onClick={makeAd}>Make a Classified Ad</Button>
       </div>
     </div>
   );

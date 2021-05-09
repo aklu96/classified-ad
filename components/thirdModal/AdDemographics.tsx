@@ -3,6 +3,7 @@ import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface AdState {
   gender: string;
+  age: string;
   target: {
     consumer: boolean;
     smb: boolean;
@@ -20,7 +21,7 @@ interface State {
   }
 }
 
-class AdLogistics extends React.Component<Props, State> {
+class AdDemographics extends React.Component<Props, State> {
 
   constructor(props: Props) {
     super(props);
@@ -40,7 +41,7 @@ class AdLogistics extends React.Component<Props, State> {
   }
 
   // handles radio and select elements
-  handleInput(e: React.ChangeEvent<HTMLInputElement>) {
+  handleInput(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) {
     this.setState({
       [e.target.name]: e.target.value
     });
@@ -51,8 +52,6 @@ class AdLogistics extends React.Component<Props, State> {
     target[e.target.value] = !target[e.target.value];
     this.setState({
       target
-    }, () => {
-      console.log(this.state);
     });
   }
 
@@ -78,9 +77,7 @@ class AdLogistics extends React.Component<Props, State> {
           <br />
           <div className="spacing"></div>
           <div>Age:</div>
-          <select name="age" onChange={(e) => {
-            console.log(e.target.value);
-          }}>
+          <select name="age" onChange={this.handleInput}>
             <option value="0-20">0 - 20</option>
             <option value="20-40">20 - 40</option>
             <option value="40-60">40 - 60</option>
@@ -114,9 +111,7 @@ class AdLogistics extends React.Component<Props, State> {
           <button
             type="button"
             onClick={() => {
-              updateAd({
-                // update
-              });
+              updateAd(this.state);
             }}
           >
             Next
@@ -128,4 +123,4 @@ class AdLogistics extends React.Component<Props, State> {
 
 };
 
-export default AdLogistics;
+export default AdDemographics;
