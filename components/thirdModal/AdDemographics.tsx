@@ -15,11 +15,7 @@ interface Props {
   updateAd: (adState: AdState) => any;
 }
 
-interface State {
-  [demographicDataType: string]: string | number | boolean;
-}
-
-class AdDemographics extends React.Component<Props, State> {
+class AdDemographics extends React.Component<Props, AdState> {
 
   constructor(props: Props) {
     super(props);
@@ -40,18 +36,23 @@ class AdDemographics extends React.Component<Props, State> {
 
   // handles radio and select elements
   handleInput(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) {
-    this.setState({
-      [e.target.name]: e.target.value
-    });
+
+    const key = e.target.name;
+    const value = e.target.value;
+    this.setStateKnownTypes({[key]: value});
+  }
+
+  /** Sets state using a cast assuming the types are safe. */
+  setStateKnownTypes = (stateObject: any) => {
+    this.setState(stateObject as unknown as Pick<AdState, keyof AdState>)
   }
 
   // handle multiple-option checkbox
   handleTargetInput(e: React.ChangeEvent<HTMLInputElement>) {
-    this.setState({
-      [e.target.value]: !this.state[e.target.value]
-    }, () => {
-      console.log(this.state);
-    });
+
+    const booleanStateKey = e.target.value as keyof AdState;
+    const currentValue = this.state[booleanStateKey];
+    this.setStateKnownTypes({[booleanStateKey]: currentValue});
   }
 
   // handles rating slider
@@ -65,14 +66,6 @@ class AdDemographics extends React.Component<Props, State> {
 
   render() {
     const { updateAd } = this.props;
-    const {
-      gender,
-      age,
-      consumer,
-      smb,
-      enterprise,
-      rating,
-    } = this.state;
     return (
       <div>
         <form>
