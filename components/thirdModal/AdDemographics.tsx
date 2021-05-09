@@ -5,11 +5,9 @@ import { Slider } from '@material-ui/core';
 interface AdState {
   gender: string;
   age: string;
-  target: {
-    consumer: boolean;
-    smb: boolean;
-    enterprise: boolean;
-  }
+  consumer: boolean;
+  smb: boolean;
+  enterprise: boolean;
   rating: number;
 }
 
@@ -18,9 +16,7 @@ interface Props {
 }
 
 interface State {
-  [demographicDataType: string]: string | number | {
-    [targetName: string]: boolean
-  }
+  [demographicDataType: string]: string | number | boolean;
 }
 
 class AdDemographics extends React.Component<Props, State> {
@@ -31,11 +27,9 @@ class AdDemographics extends React.Component<Props, State> {
     this.state = {
       gender: '',
       age: '',
-      target: {
-        consumer: false,
-        smb: false,
-        enterprise: false
-      },
+      consumer: false,
+      smb: false,
+      enterprise: false,
       rating: 10
     }
 
@@ -51,7 +45,16 @@ class AdDemographics extends React.Component<Props, State> {
     });
   }
 
-  // handles slider
+  // handle multiple-option checkbox
+  handleTargetInput(e: React.ChangeEvent<HTMLInputElement>) {
+    this.setState({
+      [e.target.value]: !this.state[e.target.value]
+    }, () => {
+      console.log(this.state);
+    });
+  }
+
+  // handles rating slider
   handleSlider(e: React.ChangeEvent<{}>, value: number | number[]) {
     if (!Array.isArray(value)) {
       this.setState({
@@ -60,16 +63,16 @@ class AdDemographics extends React.Component<Props, State> {
     }
   }
 
-  handleTargetInput(e: React.ChangeEvent<HTMLInputElement>) {
-    const { target } = this.state;
-    target[e.target.value] = !target[e.target.value];
-    this.setState({
-      target
-    });
-  }
-
   render() {
     const { updateAd } = this.props;
+    const {
+      gender,
+      age,
+      consumer,
+      smb,
+      enterprise,
+      rating,
+    } = this.state;
     return (
       <div>
         <form>

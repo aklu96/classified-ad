@@ -6,11 +6,9 @@ import AdDemographics from './AdDemographics';
 interface AdState {
   gender: string;
   age: string;
-  target: {
-    consumer: boolean;
-    smb: boolean;
-    enterprise: boolean;
-  }
+  consumer: boolean;
+  smb: boolean;
+  enterprise: boolean;
 }
 
 interface Props {
@@ -34,7 +32,7 @@ const ThirdModal = (props: Props) => {
         </Modal.Header>
         <Modal.Body>
           <AdDemographics updateAd={updateAd} />
-          </Modal.Body>
+        </Modal.Body>
         <Modal.Footer>
           <Button variant="primary" onClick={handleClose}>
             Close

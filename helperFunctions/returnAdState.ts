@@ -7,23 +7,21 @@ interface AppState {
   date: Date | string;
   body: string;
   image: string | ArrayBuffer;
-  gender: string;
-  age: string;
-  target: {
-    consumer: boolean;
-    smb: boolean;
-    enterprise: boolean;
-  }
-  rating: number;
+  gender?: string;
+  age?: string;
+  consumer?: boolean;
+  smb?: boolean;
+  enterprise?: boolean;
+  rating?: number;
 }
 
 const returnAdState = (appState: AppState): AppState => {
-  const adState = Object.assign({}, appState);
-  delete adState.view;
-  delete adState.firstModalShow;
-  delete adState.secondModalShow;
-  delete adState.thirdModalShow;
-  return adState;
+  return {
+    title: appState.title,
+    date: appState.date,
+    body: appState.body,
+    image: appState.image,
+  };
 };
 
 export default returnAdState;

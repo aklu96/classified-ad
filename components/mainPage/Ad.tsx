@@ -7,13 +7,6 @@ interface AdState {
   date: Date | string;
   body: string;
   image: string | ArrayBuffer;
-  gender: string;
-  age: string;
-  target: {
-    consumer: boolean;
-    smb: boolean;
-    enterprise: boolean;
-  }
 }
 
 interface Props {

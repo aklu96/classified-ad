@@ -14,11 +14,9 @@ interface AdState {
   image?: string | ArrayBuffer;
   gender?: string;
   age?: string;
-  target?: {
-    consumer: boolean;
-    smb: boolean;
-    enterprise: boolean;
-  },
+  consumer?: boolean;
+  smb?: boolean;
+  enterprise?: boolean;
   rating?: number;
 }
 
@@ -36,11 +34,9 @@ interface State {
   image: string | ArrayBuffer;
   gender: string;
   age: string;
-  target: {
-    consumer: boolean;
-    smb: boolean;
-    enterprise: boolean;
-  },
+  consumer: boolean;
+  smb: boolean;
+  enterprise: boolean;
   rating: number;
 }
 
@@ -63,11 +59,9 @@ class App extends React.Component<Props, State> {
       // demographic info - not displayed on ad:
       gender: '',
       age: '',
-      target: {
-        consumer: false,
-        smb: false,
-        enterprise: false
-      },
+      consumer: false,
+      smb: false,
+      enterprise: false,
       rating: 10
     };
 
