@@ -18,7 +18,8 @@ interface AdState {
     consumer: boolean;
     smb: boolean;
     enterprise: boolean;
-  }
+  },
+  rating?: number;
 }
 
 // App Props and State
@@ -39,7 +40,8 @@ interface State {
     consumer: boolean;
     smb: boolean;
     enterprise: boolean;
-  }
+  },
+  rating: number;
 }
 
 // This component will manage top-level state for the application
@@ -58,13 +60,15 @@ class App extends React.Component<Props, State> {
       date: '',
       body: '',
       image: '',
+      // demographic info - not displayed on ad:
       gender: '',
       age: '',
       target: {
         consumer: false,
         smb: false,
         enterprise: false
-      }
+      },
+      rating: 10
     };
 
     this.handleMakeAdButton = this.handleMakeAdButton.bind(this);

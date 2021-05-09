@@ -4,7 +4,7 @@ interface AppState {
   secondModalShow?: boolean;
   thirdModalShow?: boolean;
   title: string;
-  date: Date;
+  date: Date | string;
   body: string;
   image: string | ArrayBuffer;
   gender: string;
@@ -14,6 +14,7 @@ interface AppState {
     smb: boolean;
     enterprise: boolean;
   }
+  rating: number;
 }
 
 const returnAdState = (appState: AppState): AppState => {

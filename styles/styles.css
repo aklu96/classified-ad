@@ -35,6 +35,15 @@
 }
 
 .adBody {
-  text-align: center;
+  display: block;
+  margin: auto;
   padding: 20px;
+  width: 500px;
+}
+
+.image {
+  display: block;
+  padding: 20px;
+  width: 500px;
+  margin: auto;
 }

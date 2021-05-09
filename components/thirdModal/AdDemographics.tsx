@@ -139,7 +139,7 @@ class AdDemographics extends React.Component<Props, State> {
               updateAd(this.state);
             }}
           >
-            Next
+            Complete
           </button>
         </form>
       </div>

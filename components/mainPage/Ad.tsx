@@ -37,6 +37,7 @@ const Ad = (props: Props) => {
       <h1 className="welcomePageTitleContainer">{title}</h1>
       <h6 className="date">{date}</h6>
       <div className="adBody">{body}</div>
+      <img className="image" src={image.toString()}></img>
     </div>
   );
 }
