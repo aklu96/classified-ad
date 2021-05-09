@@ -1,5 +1,6 @@
 import React from "react";
 import 'bootstrap/dist/css/bootstrap.min.css';
+import { Slider } from '@material-ui/core';
 
 interface AdState {
   gender: string;
@@ -9,6 +10,7 @@ interface AdState {
     smb: boolean;
     enterprise: boolean;
   }
+  rating: number;
 }
 
 interface Props {
@@ -16,7 +18,7 @@ interface Props {
 }
 
 interface State {
-  [demographicDataType: string]: string | {
+  [demographicDataType: string]: string | number | {
     [targetName: string]: boolean
   }
 }
@@ -33,11 +35,13 @@ class AdDemographics extends React.Component<Props, State> {
         consumer: false,
         smb: false,
         enterprise: false
-      }
+      },
+      rating: 10
     }
 
     this.handleInput = this.handleInput.bind(this);
     this.handleTargetInput = this.handleTargetInput.bind(this);
+    this.handleSlider = this.handleSlider.bind(this);
   }
 
   // handles radio and select elements
@@ -47,8 +51,17 @@ class AdDemographics extends React.Component<Props, State> {
     });
   }
 
+  // handles slider
+  handleSlider(e: React.ChangeEvent<{}>, value: number | number[]) {
+    if (!Array.isArray(value)) {
+      this.setState({
+        rating: value
+      });
+    }
+  }
+
   handleTargetInput(e: React.ChangeEvent<HTMLInputElement>) {
-    const  { target } = this.state;
+    const { target } = this.state;
     target[e.target.value] = !target[e.target.value];
     this.setState({
       target
@@ -107,6 +120,18 @@ class AdDemographics extends React.Component<Props, State> {
             onChange={this.handleTargetInput}
           /> Large Enterprises
           <br />
+          <div className="spacing"></div>
+          <div>Please rate our app!</div>
+          <Slider
+            defaultValue={10}
+            aria-labelledby="discrete-slider-small-steps"
+            step={1}
+            marks
+            min={0}
+            max={10}
+            valueLabelDisplay="auto"
+            onChangeCommitted={this.handleSlider}
+          />
           <div className="spacing"></div>
           <button
             type="button"

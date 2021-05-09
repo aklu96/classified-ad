@@ -9,7 +9,7 @@ import returnAdState from '../helperFunctions/returnAdState';
 // used for updateAdAndView method so that it can be reused for all modals
 interface AdState {
   title?: string;
-  date?: Date;
+  date?: Date | string;
   body?: string;
   image?: string | ArrayBuffer;
   gender?: string;
@@ -30,7 +30,7 @@ interface State {
   secondModalShow: boolean;
   thirdModalShow: boolean;
   title: string;
-  date: Date;
+  date: Date | string;
   body: string;
   image: string | ArrayBuffer;
   gender: string;
@@ -55,7 +55,7 @@ class App extends React.Component<Props, State> {
       thirdModalShow: false,
       // ad state:
       title: '',
-      date: new Date(),
+      date: '',
       body: '',
       image: '',
       gender: '',
@@ -82,9 +82,7 @@ class App extends React.Component<Props, State> {
     const newState = { view };
     // update modal states
     Object.assign(newState, updateModalStates(view));
-    this.setState(newState, () => {
-      console.log(this.state);
-    });
+    this.setState(newState);
   }
 
   // this function updates the ad state after each modal and renders the next one
@@ -98,9 +96,7 @@ class App extends React.Component<Props, State> {
 
     // use assign in order to bypass making a method for each modal
     Object.assign(newState, adState);
-    this.setState(newState, () => {
-      console.log(`on to modal ${this.state.view}`, this.state);
-    });
+    this.setState(newState);
   }
 
   // handle exiting modals (passed down to each modal)

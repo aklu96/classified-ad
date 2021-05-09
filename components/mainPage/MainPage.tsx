@@ -5,7 +5,7 @@ import Ad from './Ad';
 
 interface AdState {
   title: string;
-  date: Date;
+  date: Date | string;
   body: string;
   image: string | ArrayBuffer;
   gender: string;
