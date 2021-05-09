@@ -29,3 +29,12 @@
 .spacing {
   height: 10px;
 }
+
+.date {
+  text-align: center;
+}
+
+.adBody {
+  text-align: center;
+  padding: 20px;
+}

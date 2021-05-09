@@ -3,15 +3,25 @@ import MainPage from '../components/mainPage/MainPage';
 import FirstModal from '../components/firstModal/FirstModal';
 import SecondModal from '../components/secondModal/SecondModal';
 import ThirdModal from '../components/thirdModal/ThirdModal';
-import updateModalStates from '../helperFunctions/updateModalStates'
+import updateModalStates from '../helperFunctions/updateModalStates';
+import returnAdState from '../helperFunctions/returnAdState';
 
 // used for updateAdAndView method so that it can be reused for all modals
 interface AdState {
   title?: string;
-  date?: Date;
+  date?: Date | string;
   body?: string;
+  image?: string | ArrayBuffer;
+  gender?: string;
+  age?: string;
+  target?: {
+    consumer: boolean;
+    smb: boolean;
+    enterprise: boolean;
+  }
 }
 
+// App Props and State
 interface Props { }
 
 interface State {
@@ -20,8 +30,16 @@ interface State {
   secondModalShow: boolean;
   thirdModalShow: boolean;
   title: string;
-  date: Date;
+  date: Date | string;
   body: string;
+  image: string | ArrayBuffer;
+  gender: string;
+  age: string;
+  target: {
+    consumer: boolean;
+    smb: boolean;
+    enterprise: boolean;
+  }
 }
 
 // This component will manage top-level state for the application
@@ -37,8 +55,16 @@ class App extends React.Component<Props, State> {
       thirdModalShow: false,
       // ad state:
       title: '',
-      date: new Date(),
-      body: ''
+      date: '',
+      body: '',
+      image: '',
+      gender: '',
+      age: '',
+      target: {
+        consumer: false,
+        smb: false,
+        enterprise: false
+      }
     };
 
     this.handleMakeAdButton = this.handleMakeAdButton.bind(this);
@@ -70,9 +96,7 @@ class App extends React.Component<Props, State> {
 
     // use assign in order to bypass making a method for each modal
     Object.assign(newState, adState);
-    this.setState(newState, () => {
-      console.log(`on to modal ${this.state.view}`, this.state);
-    });
+    this.setState(newState);
   }
 
   // handle exiting modals (passed down to each modal)
@@ -92,7 +116,10 @@ class App extends React.Component<Props, State> {
     } = this.state;
     return (
       <div>
-        <MainPage makeAd={this.handleMakeAdButton} />
+        <MainPage
+          makeAd={this.handleMakeAdButton}
+          adState={returnAdState(this.state)}
+        />
         <FirstModal
           show={firstModalShow}
           handleClose={this.handleClose}
@@ -100,6 +127,11 @@ class App extends React.Component<Props, State> {
         />
         <SecondModal
           show={secondModalShow}
+          handleClose={this.handleClose}
+          updateAd={this.updateAdAndView}
+        />
+        <ThirdModal
+          show={thirdModalShow}
           handleClose={this.handleClose}
           updateAd={this.updateAdAndView}
         />
