@@ -1,6 +1,5 @@
 import React, { useState } from "react";
 import DatePicker from "react-datepicker";
-import "bootstrap/dist/css/bootstrap.min.css";
 
 interface Props {
   updateDate: (date: Date) => any;

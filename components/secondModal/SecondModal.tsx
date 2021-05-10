@@ -1,6 +1,5 @@
 import Modal from 'react-bootstrap/modal';
 import Button from 'react-bootstrap/button';
-import "bootstrap/dist/css/bootstrap.min.css";
 import AdBody from './AdBody';
 
 interface AdState {

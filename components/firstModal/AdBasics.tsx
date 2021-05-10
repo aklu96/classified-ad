@@ -1,5 +1,4 @@
 import React from "react";
-import 'bootstrap/dist/css/bootstrap.min.css';
 import AdDate from './AdDate';
 import validateCharLimit from '../../helperFunctions/validateCharLimit';
 import validateDate from '../../helperFunctions/validateDate';

@@ -1,5 +1,4 @@
 import Button from 'react-bootstrap/button';
-import 'bootstrap/dist/css/bootstrap.min.css';
 
 interface Props {
   makeAd: () => any;
