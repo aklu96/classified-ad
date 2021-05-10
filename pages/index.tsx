@@ -6,6 +6,9 @@ import ThirdModal from '../components/thirdModal/ThirdModal';
 import updateModalStates from '../helperFunctions/updateModalStates';
 import returnAdState from '../helperFunctions/returnAdState';
 
+
+// FIX TARGET STATE PROBLEM
+
 // used for updateAdAndView method so that it can be reused for all modals
 interface AdState {
   title?: string;
@@ -80,7 +83,9 @@ class App extends React.Component<Props, State> {
     const newState = { view };
     // update modal states
     Object.assign(newState, updateModalStates(view));
-    this.setState(newState);
+    this.setState(newState, () => {
+      console.log(this.state);
+    });
   }
 
   // this function updates the ad state after each modal and renders the next one

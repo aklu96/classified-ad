@@ -34,25 +34,25 @@ class AdDemographics extends React.Component<Props, AdState> {
     this.handleSlider = this.handleSlider.bind(this);
   }
 
+  // Sets state using a cast assuming the types are safe
+  setStateKnownTypes(stateObject: any) {
+    this.setState(stateObject as unknown as Pick<AdState, keyof AdState>);
+  }
+
   // handles radio and select elements
   handleInput(e: React.ChangeEvent<HTMLInputElement> | React.ChangeEvent<HTMLSelectElement>) {
 
     const key = e.target.name;
     const value = e.target.value;
-    this.setStateKnownTypes({[key]: value});
+    this.setStateKnownTypes({ [key]: value });
   }
 
-  /** Sets state using a cast assuming the types are safe. */
-  setStateKnownTypes = (stateObject: any) => {
-    this.setState(stateObject as unknown as Pick<AdState, keyof AdState>)
-  }
 
   // handle multiple-option checkbox
   handleTargetInput(e: React.ChangeEvent<HTMLInputElement>) {
-
     const booleanStateKey = e.target.value as keyof AdState;
     const currentValue = this.state[booleanStateKey];
-    this.setStateKnownTypes({[booleanStateKey]: currentValue});
+    this.setStateKnownTypes({ [booleanStateKey]: !currentValue });
   }
 
   // handles rating slider
