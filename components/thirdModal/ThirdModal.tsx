@@ -1,5 +1,4 @@
-import Modal from 'react-bootstrap/modal';
-import Button from 'react-bootstrap/button';
+import { Modal, Button } from 'react-bootstrap';
 import AdDemographics from './AdDemographics';
 
 interface AdState {
